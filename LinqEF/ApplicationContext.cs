@@ -19,7 +19,7 @@ public class ApplicationContext : DbContext
         //+"MultipleActiveResultSets=true;"
         //);
 
-        optionsBuilder.UseSqlServer("data source=localhost;initial catalog=Patients;user=sa;password=23011986;App=EntityFramework;TrustServerCertificate=True");
+        optionsBuilder.UseSqlServer("data source=localhost;initial catalog=Users;user=sa;password=23011986;App=EntityFramework;TrustServerCertificate=True");
 
     } 
 }
