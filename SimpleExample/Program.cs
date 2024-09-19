@@ -2,11 +2,16 @@
 
 // Запрос создается, но не выполняется
 var query = from n in numbers
-            where n > 2
+            where n > Get1()
             select n;
-
+;
 // Запрос выполнится только здесь, когда мы начнем итерировать результаты
 foreach (var number in query)
 {
     Console.WriteLine(number);
+}
+
+int Get1()
+{
+    return 2;
 }
