@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="LinqQueries.pptx" />
+    <None Remove="~%24LinqQueries.pptx" />
+  </ItemGroup>
+
 </Project>
