@@ -19,7 +19,7 @@ IEnumerable<Employer>
             from item in source
             select item;
 
-//2. Пример с демеонстрацией фильтров
+//2. Пример с демонстрацией фильтров
 IEnumerable<Employer>
     onlyIT =
             from item in source
@@ -31,7 +31,7 @@ IEnumerable<Employer>
     orderBy =
             from item in source
             //where item.Department.DepartmentName.Equals("ИТ")
-            orderby item.Name
+            orderby item.Name /*ascending*/ /*descending*/
             select item;
 
 //4. Пример group by
@@ -50,17 +50,71 @@ IEnumerable<IGrouping<int,Employer>>
         from item in source
         let description = ($"{item.Name} работает в отделе: {item.Department}")
         //select description;
+        /*В linq-запросах допускается возвращать анонимный тип*/
         select new { id = item.Id, Name = item.Name, Department = item.Department,
                     Description = description};
 
-//6. Пример использования into
+//6. Пример использования into вместе с group
 //IEnumerable<string>
-    var
-    emplWithHashCode
+var
+emplWithHashCode
     = from item in source
-      group item by item.Department.Id into dprtId
-      where dprtId != null
+      group item by item.Department.Id into dprtId /*Тип dprtId - IGrouping<int,Employer> */
       select new { Id=dprtId.Key, Employee = string.Join(",", dprtId.Select(item => item.Name)) };
+
+//6.' Пример использования into вместе с select
+int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+IEnumerable<int> 
+    _squares = from number in numbers
+            select number*number into squares
+            select squares;
 ;
 
-//7. Пример использования
+//7. Пример использования join 
+List<Student> students = new List<Student> 
+{ 
+    new Student { StudentId = 1, Name = "Ivanov", GroupId = 1 },
+    new Student { StudentId = 2, Name = "Petrov", GroupId = 2 },
+    new Student { StudentId = 1, Name = "Sidorov", GroupId = 1 },
+};
+
+List<StudentGroup> groups = new List<StudentGroup>
+{
+    new StudentGroup { GroupId = 1, Name = "Отличники" },
+    new StudentGroup { GroupId = 2, Name = "Двоечники" }
+};
+
+//Вывод нового типа, который содержиь пары: имя студент и имя группы студента
+var studentsInGroups = 
+    from student in students
+    join eachgroup in groups on student.GroupId equals eachgroup.GroupId
+    select new { StudentName = student.Name, GroupName = eachgroup.Name };
+;
+
+//8. Пример вложенного запроса 
+IEnumerable<string> groupNames =
+    from item in 
+
+    /*Вложенный запрос из п.7*/
+
+    from student in students
+    join eachgroup in groups on student.GroupId equals eachgroup.GroupId
+    select new { StudentName = student.Name, GroupName = eachgroup.Name }
+
+    /*-----------------------*/
+    
+    select item.GroupName;
+
+//9. Пример использования агрегатной функции (Count() - метод fluent api)
+int groupNamesCount =
+    (from item in
+
+        /*Вложенный запрос из п.7*/
+
+        from student in students
+        join eachgroup in groups on student.GroupId equals eachgroup.GroupId
+        select new { StudentName = student.Name, GroupName = eachgroup.Name }
+
+        /*-----------------------*/
+
+    select item.GroupName).Count();
