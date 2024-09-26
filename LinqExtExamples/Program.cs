@@ -14,10 +14,8 @@ List<Employer> source = new List<Employer>()
 
 
 //1. Самый простой запрос без условий. Возвращает коллекцию как есть
-IEnumerable<Employer> 
-    asIs = 
-            from item in source
-            select item;
+IEnumerable<Employer> asIs = source.Where(item => item.Id > 1).Select(item => item);
+
 
 //2. Пример с демонстрацией фильтров
 IEnumerable<Employer>
