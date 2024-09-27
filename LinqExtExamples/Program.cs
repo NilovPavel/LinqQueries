@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using System.Linq;
 using LinqExamples;
+using LinqUndeclarativeExamples;
 
 
 //Инициализация коллекции 
@@ -19,6 +20,17 @@ IEnumerable<Employer> asIs = source.Select(item => item);
 
 //2. Пример с демонстрацией фильтров
 IEnumerable<Employer> onlyIT = source.Where(item => item.Department.DepartmentName.Equals("ИТ"));
+
+//2.' Пример с фильтрацией подходящей по определенному условию(отсуствует в декларативном синтаксисе)
+List<IPerson> peoples = new List<IPerson>()
+{
+    new Child {  }
+    , new Child {  }
+    , new Parent { }
+};
+
+var onlyChilds = peoples.OfType<Child>().ToList();
+
 
 //3. Пример сортировки order by
 IEnumerable<Employer> orderBy = source.OrderBy(item => item.Name); 
