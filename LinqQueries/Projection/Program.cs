@@ -1,4 +1,6 @@
 ﻿//Select 
+using System.Linq;
+
 List<string> words = ["an", "apple", "a", "day"];
 
 var query = from word in words
@@ -30,3 +32,18 @@ foreach (string s in query)
 IEnumerable<int> numbers = [1, 2, 3, 4, 5, 6, 7];
 // A char array with 6 elements.
 IEnumerable<char> letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+var zip
+ = numbers.Zip(letters
+ );
+
+IEnumerable<ZipType> zip2 = numbers.Zip(letters
+ , (number, letter) => new ZipType { Num = number, Letter = letter }    
+ );
+
+
+class ZipType
+{
+    public int Num { get; set; }
+    public char Letter { get; set; }
+}
