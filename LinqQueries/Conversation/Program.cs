@@ -10,23 +10,17 @@ IEnumerable peoples = new List<IPerson>()
     , new Parent { }
 };
 
-var onlyChilds = peoples
-    .OfType<Child>()          //Раскомментировать, чтобы убрать Exception
-    .Cast<Child>();
-
-//Цикл только для того, чтобы показать Exception
-foreach (var child in onlyChilds)
-    ;
+List<Child> onlyChilds = peoples
+    //.OfType<Child>()          //Раскомментировать, чтобы убрать Exception
+    .Cast<Child>().ToList();
 
 //В декларативном синтаксисе
-IEnumerable<Child> query = from Child child in peoples
-            select child;
+List<Child> query = (
+            from Child child in peoples
+            select child
+            ).ToList();
 
-;
 //ToList
-var onlyChild = onlyChilds.ToList<Child>();
-
-
-
+List<Child> onlyChild = onlyChilds.ToList<Child>();
 
 ;
