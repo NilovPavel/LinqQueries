@@ -1,4 +1,6 @@
-﻿using (ApplicationContext db = new ApplicationContext())
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+using (ApplicationContext db = new ApplicationContext())
 {
     // Добавить пользователей, если их нет в Db
     /*User tom = new User { Name = "Tom", Age = 33 };
@@ -7,10 +9,11 @@
     db.Add<User>(alice);
     db.SaveChanges();*/
 
-    IQueryable<User> myUsers = db.Users;
 
-    foreach (User u in myUsers)
-    {
-        Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
-    }
+
+    IQueryable<User> query = db.Users;
+    query = query.Where(item => item.Age > 27);
+    query = query.Where(item => item.Age < 33);
+    List<User> users = query.ToList();
+    ;
 }

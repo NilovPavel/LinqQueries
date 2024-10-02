@@ -5,9 +5,9 @@ public class ApplicationContext : DbContext
     public DbSet<User> Users => Set<User>();
     public ApplicationContext() : base()
     {
-        Database.EnsureDeleted();
+        /*Database.EnsureDeleted();
         Database.EnsureCreated();
-        this.SaveChanges();
+        this.SaveChanges();*/
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
