@@ -17,6 +17,11 @@ List<Employer> source = new List<Employer>()
 //1. Самый простой запрос без условий. Возвращает коллекцию как есть
 IEnumerable<Employer> asIs = source.Select(item => item);
 
+//Func с передачей в select
+//Идентичен запросу выше.
+Func<Employer, Employer> funcOfEmployers = (item) => item;
+asIs = source.Select(funcOfEmployers);
+
 
 //2. Пример с демонстрацией фильтров
 IEnumerable<Employer> onlyIT = source.Where(item => item.Department.DepartmentName.Equals("ИТ"));

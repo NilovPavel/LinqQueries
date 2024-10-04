@@ -13,7 +13,7 @@ using (ApplicationContext db = new ApplicationContext())
 
     IQueryable<User> query = db.Users;
     query = query.Where(item => item.Age > 27);
-    query = query.Where(item => item.Age < 33);
+    query = query.Where(item => item.Age < 34);
     List<User> users = query.ToList();
-    ;
+    ;/**/
 }
