@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-XElement contacts =
+XElement contacts = 
 new XElement("Contacts",
     new XElement("Contact",
         new XElement("Name", "Patrick Hines"),
@@ -17,6 +17,9 @@ new XElement("Contacts",
     )
 );
 
-IEnumerable<string> name = from item in contacts.Elements()
-              where item.Name.Equals("Name")
-              select item.Value;
+IEnumerable<string> names = from item in contacts.Element("Contact").Elements()
+              select item.ToString();
+
+names = names.ToList();
+;
+
